@@ -1,74 +1,121 @@
-# Deep Learning CNN-LSTM Benchmark
+# Deep Learning Intelligence Suite - Clinical Prediction & Hybrid CNN-LSTM
 
-## Overview
-This repository provides a comparative deep learning framework evaluating Convolutional Neural Networks (CNN) for spatial feature extraction, Long Short-Term Memory (LSTM) networks for sequential modeling, and supervised classification for clinical cardiovascular risk prediction.
+<p align="center">
+  <a href="https://sohail.devsil.com"><strong>Portfolio</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh/deep-learning-cnn-lstm"><strong>Source Repository</strong></a>
+</p>
 
-## System Architecture
+---
 
-```mermaid
-flowchart TD
-    A[Clinical & Sequential Feature Vectors] --> B[Preprocessing & Standardization]
-    B --> C[CNN Spatial Feature Extractor]
-    B --> D[LSTM Temporal Sequence Processor]
-    C --> E[Feature Concatenation Layer]
-    D --> E
-    E --> F[Dense Classification Network]
-    F --> G[Diagnostic Risk Output & Performance Metrics]
+## Executive Summary & Problem Statement
+
+Modern artificial intelligence systems must solve both tabular clinical diagnostic problems and complex spatial-temporal sequence challenges. Clinical healthcare practitioners need predictive risk scoring from physiological biomarkers (such as the Cleveland Heart Disease registry), while advanced automation systems require neural architectures that extract spatial visual features and track long-term sequential dependencies.
+
+This repository provides an integrated **Dual-Module Deep Learning Suite**:
+1. **Module 1 - Clinical Cardiovascular Risk Predictor**: Machine learning pipeline for non-invasive heart disease classification (`01_Heart_disease_prediction/`).
+2. **Module 2 - Hybrid CNN-LSTM Neural Network**: End-to-end spatial-temporal deep learning architecture combining Convolutional Neural Networks with Recurrent LSTM units (`notebooks/`).
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/sohailahmed-bsrh/myportfolio/main/assets/images/thumbnail/heart-disease-prediction.jpeg" width="650" alt="Deep Learning Intelligence Suite"/>
+  <p><em>Clinical diagnostic classification coupled with spatial-temporal CNN-LSTM neural architectures.</em></p>
+</div>
+
+---
+
+## Real-World Industry Applications
+
+- **Cardiovascular Clinical Decision Support**: Flags early cardiovascular disease risk from patient clinical markers (cholesterol, resting ECG, blood pressure).
+- **Medical Imaging & Video Analysis**: Analyzes echocardiograms and angiography sequences where spatial image features evolve temporally.
+- **Biometric Sequence Tracking**: Processes sequential multi-lead ECG signals to identify cardiac arrhythmias.
+- **Serialized Model Serving**: Deploys calibrated pickled model pipelines (`best_model.pkl`) into clinical production environments.
+
+---
+
+## Technical Architecture & Engineering Walkthrough
+
+```
+                      ┌────────────────────────────────────────┐
+                      │    Deep Learning Intelligence Suite    │
+                      └───────────────────┬────────────────────┘
+                                          │
+         ┌────────────────────────────────┴────────────────────────────────┐
+         ▼                                                                 ▼
+[Module 1: Clinical Heart Disease]                        [Module 2: Hybrid CNN-LSTM Architecture]
+(Tabular Biomarker Pipeline)                              (Spatial-Temporal Neural Pipeline)
+         │                                                                 │
+         ▼                                                                 ▼
+[Data Cleaning & Biomarker Scaling]                       [Input Tensor Sequence (Batch, Time, Spatial)]
+(Resting BP, Cholesterol, Thalassemia)                                     │
+         │                                                                 ▼
+         ▼                                                [TimeDistributed Conv2D/Conv1D Spatial Extraction]
+[Model Selection & Hyperparameter Tuning]                                   │
+(Logistic, Random Forest, SVM, XGBoost)                                    ▼
+         │                                                [Stacked LSTM Recurrent Temporal Memory]
+         ▼                                                                 │
+[Model Serialization: best_model.pkl]                                      ▼
+                                                          [Dense Classification & Cross-Entropy Loss]
 ```
 
-## Core Features
-- **Dual Architecture Benchmark**: Comparative analysis between convolutional spatial extractors and recurrent sequential networks.
-- **Clinical Predictive Modeling**: Binary and multi-class classification predicting cardiovascular disease indicators.
-- **Model Serialization**: Exported production weights (`best_model.pkl`) ready for integration into inference pipelines.
-- **Performance Evaluation**: Comprehensive ROC-AUC curves, confusion matrices, and precision-recall benchmarks.
+### Module 1: Cardiovascular Disease Predictive Pipeline
+- **Dataset**: Cleveland Heart Disease registry (`heart_disease_uci.csv`) encompassing 14 clinical attributes including resting blood pressure, serum cholesterol, fasting blood sugar, resting electrocardiographic results, and exercise-induced angina.
+- **Preprocessing**: Handles missing values, performs one-hot encoding on categorical biomarkers, and applies `StandardScaler` to physiological features.
+- **Evaluation**: Benchmarks multiple classifiers, selecting the optimal model based on ROC-AUC, Precision, and Recall. Serializes the champion estimator to `best_model.pkl`.
 
-## Repository Structure
-```
-deep-learning-cnn-lstm/
-|-- 01_Heart_disease_prediction/
-|   |-- best_model.pkl
-|   |-- heart_disease_prediction.ipynb
-|   +-- heart_disease_uci.csv
-|-- notebooks/
-|   +-- Deep_Learning_Project_using_CNN_(Computer_Vision)_and_LSTM_(NLP).ipynb
-|-- requirements.txt
-+-- README.md
-```
+### Module 2: Hybrid CNN-LSTM Spatial-Temporal Network
+- **Spatial Feature Representation**: Employs `TimeDistributed` convolutional layers to extract spatial representations from sequential frame matrices without weight drift across time steps.
+- **Temporal Sequence Modeling**: Passes convolutional feature embeddings into stacked Long Short-Term Memory (LSTM) cells to capture long-range temporal dependencies.
+- **Regularization**: Integrates Spatial Dropout, Recurrent Dropout, and Batch Normalization to prevent overfitting and guarantee convergence stability.
 
-## Technology Stack
-| Layer | Technologies |
-| :--- | :--- |
-| Frameworks | TensorFlow, Keras, PyTorch |
-| Data Processing | Pandas, NumPy, Scikit-Learn |
-| Serialization | Joblib, Pickle |
-| Visual Diagnostics | Matplotlib, Seaborn |
+---
 
-## Installation & Execution
+## Technology Stack & Implementation Specifications
+
+| Component | Technology | Version | Architectural Function |
+| :--- | :--- | :--- | :--- |
+| **Deep Learning** | TensorFlow / Keras | 2.15+ | Hybrid CNN-LSTM architecture and TimeDistributed layers |
+| **Machine Learning** | Scikit-Learn | 1.3+ | Clinical classification pipelines, metric validation, pickle |
+| **Data Engine** | Pandas / NumPy | 2.x | Physiological data cleaning, matrix transformations |
+| **Visualization** | Seaborn / Matplotlib | 3.8+ | ROC curves, confusion matrices, neural loss curves |
+
+---
+
+## Installation & Execution Guide
+
+### 1. Clinical Heart Disease Module
 ```bash
-git clone https://github.com/sohailahmed-bsrh/deep-learning-cnn-lstm.git
-cd deep-learning-cnn-lstm
-pip install -r requirements.txt
-jupyter notebook 01_Heart_disease_prediction/heart_disease_prediction.ipynb
+cd 01_Heart_disease_prediction
+python -m venv venv
+# Windows: venv\Scriptsctivate | Unix: source venv/bin/activate
+pip install -r ../requirements.txt
+jupyter notebook heart_disease_prediction.ipynb
+```
+
+### 2. Hybrid CNN-LSTM Neural Network
+```bash
+# In repository root:
+jupyter notebook "notebooks/Deep_Learning_Project_using_CNN_(Computer_Vision)_and_LSTM_(NLP).ipynb"
 ```
 
 ---
 
 ## Author & Contact Information
 
-<table width="100%" align="center">
+<table width="100%">
   <tr>
-    <td align="center" style="padding: 20px;">
+    <td width="150" align="center" valign="middle">
+      <img src="https://avatars.githubusercontent.com/u/231165170?v=4" width="120" style="border-radius: 50%;" alt="Sohail Ahmed"/>
+    </td>
+    <td>
       <h3>Sohail Ahmed</h3>
-      <p><strong>Full-Stack Artificial Intelligence & Computer Vision Engineer</strong></p>
+      <p><strong>Senior Software Engineer & AI Systems Architect</strong></p>
+      <p>Specializing in Full-Stack AI Application Development, Computer Vision, Deep Learning Pipelines, and Scalable Automation Architectures.</p>
       <p>
-        <a href="https://sohail.devsil.com"><img src="https://img.shields.io/badge/Live_Portfolio-sohail.devsil.com-0052FF?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/></a>
-        <a href="https://github.com/sohailahmed-bsrh"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></a>
-        <a href="https://linkedin.com/in/sohail-ahmed-dev"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-        <a href="mailto:sohail.bsrh@gmail.com"><img src="https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+        <a href="https://sohail.devsil.com"><strong>Portfolio Website</strong></a> | 
+        <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+        <a href="https://www.linkedin.com/in/sohail-ahmed-546314316/"><strong>LinkedIn</strong></a> | 
+        <a href="mailto:se906403@gmail.com"><strong>Email Contact</strong></a>
       </p>
-      <p><em>Available for technical roles in Artificial Intelligence, Computer Vision, and Full-Stack Engineering.</em></p>
-      <hr style="border: 0; height: 1px; background: #30363d; margin: 15px 0;">
-      <small>Distributed under the MIT License.</small>
     </td>
   </tr>
 </table>
